@@ -97,7 +97,7 @@ namespace ryokohbato_classes
       }
 
       string classesData;
-      using(StreamReader sr = new StreamReader("classes.json"))
+      using(StreamReader sr = new StreamReader(Path.Combine(System.AppContext.BaseDirectory, "classes.json")))
       {
         classesData = sr.ReadToEnd();
       }
