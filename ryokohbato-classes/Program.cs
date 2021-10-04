@@ -15,7 +15,6 @@ namespace ryokohbato_classes
         Environment.Exit(0);
       }
 
-
       // 講義開始時刻・講義開始5分前 のみ
       int period = -1;
       NotificationTime timing = NotificationTime.Start;
@@ -119,9 +118,12 @@ namespace ryokohbato_classes
 
       var classInfo = oneDayclassesData.GetProperty(period.ToString());
 
-      if (classInfo.ToString().ToLower() == "false" && timing == NotificationTime.Announce)
+      if (classInfo.ToString().ToLower() == "false")
       {
-        await slack.PostMessageAsync("<@ryokohbato> 授業なし！", "ryokohbato-dev-log-zatsu", Keys.UserOAuthToken);
+        if (timing == NotificationTime.Announce)
+        {
+          await slack.PostMessageAsync("<@ryokohbato> 授業なし！", "ryokohbato-dev-log-zatsu", Keys.UserOAuthToken);
+        }
       }
       else if (timing == NotificationTime.Announce)
       {
